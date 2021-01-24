@@ -47,9 +47,30 @@
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
-
+let reg = /^(the|an\b |a\b )/i;
+/*tableau trié sans les préfixes*/
+const sortedBands = bands.map(el => reg.test(el) === true? el.replace(reg,"").trim():el).sort()
+/*------------------------------------------------------*/
+/*rajout des préfixes sur le tableau trié*/
+sortedBands.forEach((el,i,arr)=>{
+  let rg = new RegExp(el)
+  bands.forEach(element =>{
+                            if(rg.test(element) === true)
+                            arr[i] = element    
+                          })  
+})
+/*-------------------------------------------------------*/
+/*création des bandes li*/
+sortedBands.forEach((el,i,arr) => {
+  let li = document.createElement("li")
+  li.textContent = el
+  arr[i] = li
+})
+/*ajout des li dans ul*/
+sortedBands.forEach(el =>{
+  document.querySelector('#bands').appendChild(el)
+})
 
 </script>
-
 </body>
 </html>

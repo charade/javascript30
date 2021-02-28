@@ -30,6 +30,7 @@
       border-bottom: 0;
     }
 
+/*qui fait que le text se coche*/
     input:checked + p {
       background: #F9F9F9;
       text-decoration: line-through;
@@ -96,6 +97,39 @@
   </div>
 
 <script>
+
+let arr = Array.from(document.querySelectorAll('input'))
+arr.forEach(input => input.addEventListener('click', shiftPressed))
+console.log(arr)
+//récupère le dernier click
+let lastChecked = null;
+
+function shiftPressed(e){
+  console.log(lastChecked,e.shiftKey)
+  if(lastChecked !== null && lastChecked.checked && this.checked && e.shiftKey)
+  {
+    if(arr.indexOf(this) > arr.indexOf(lastChecked))
+    {
+      mkArray(this,lastChecked).forEach((el,i,arr) => arr[i].checked = true)
+    }
+    else
+    {
+      mkArray(lastChecked,this).forEach((el,i,arr) => arr[i].checked = true)
+    }
+  }
+  lastChecked = this
+}
+
+//selectionne tous les élements
+function mkArray(a,b){
+  let toCheck = []
+  for(let i = arr.indexOf(b) + 1; i < arr.indexOf(a);i++)
+  {
+    toCheck.push(arr[i]);
+  }
+  return toCheck;
+}
+/***************************************************************************************************************************/
 </script>
-</body>
+</body> 
 </html>

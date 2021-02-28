@@ -58,6 +58,20 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  let allTouches = Array.from(document.querySelectorAll("kbd"))
+  let allAudio = Array.from(document.querySelectorAll('audio'))
+
+  allTouches.forEach(touche => touche.addEventListener('click', (e)=>{
+    let sound = allAudio[allTouches.indexOf(e.target)]
+    sound.play();
+    sound.currentTime = 0;
+    e.target.parentNode.classList.add('playing');
+    e.target.parentNode.addEventListener('transitionend',(eventEnd)=>{
+      if(eventEnd.propertyName === 'transform')
+        e.target.parentNode.classList.remove('playing')
+    })
+
+  }))
 
 </script>
 

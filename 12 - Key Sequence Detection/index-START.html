@@ -7,6 +7,17 @@
 </head>
 <body>
 <script>
+    let magic = /click/g;
+    let arr  = [];
+    window.addEventListener('keydown',(e)=>{
+      arr.push(e.key);
+      if(magic.test(arr.join('')))
+      {
+        cornify_add();
+      }
+    })
+
+    
 </script>
 </body>
 </html>
